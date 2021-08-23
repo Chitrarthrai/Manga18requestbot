@@ -34,13 +34,13 @@ async def req(request):
       [
         Button.inline(
           text='Accept',
-          callback_data=f'acp_{request.sender_id}',
+          data=f'acp_{request.sender_id}',
           )
         ]
       [
         Button.inline(
           text='Request Complete!',
-          callback_data=f'recomp_{request.sender_id}',
+          data=f'recomp_{request.sender_id}',
           )
         ]
       ])
@@ -69,7 +69,7 @@ async def accepter(query):
   msg_after = msg_before + '\n\n✔︎ Accepted'
   await query.answer('Trying to send a notif....')
   await bot.send_message(int(user_to_notif), text='Your request was accepted!')
-  await query.message.edit(msg_after, buttons=[[Button.inline(text='Request Complete', callback_data=f'recomp_{user_to_notif}')]])
+  await query.message.edit(msg_after, buttons=[[Button.inline(text='Request Complete', data=f'recomp_{user_to_notif}')]])
   
 @bot.on(events.CallbackQuery(pattern=b'recomp_'))
 async def accepter(query):
