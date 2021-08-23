@@ -30,13 +30,12 @@ async def req(request):
   else:
     req_user = f"[{request.sender.first_name}](tg://user?id={request.sender_id})" 
     text = f"Request: {query}\nRequested by: {req_user}\nRequestor Id: `{request.sender_id}`"
-    await bot.send_message(-1001375115372, text, buttons = [
-      [
+    await bot.send_message(-1001375115372, text, buttons = [[
         Button.inline(
           text='Accept',
           data=f'acp_{request.sender_id}',
           )
-        ]
+        ],
       [
         Button.inline(
           text='Request Complete!',
