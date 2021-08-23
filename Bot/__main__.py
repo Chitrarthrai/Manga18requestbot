@@ -56,8 +56,8 @@ async def reply_to_user(msg):
     user_to_message = repl.text.split('`', 1)[1]
     user_to_message = user_to_message.split('`')[0]
     try:
-      await bot.send_message(int(user_to_message), text=msg.message.text)
-    except errors.rpcbaseerrors.UnauthorizedError or errors.rpcbaseerrors.ForbiddenError:
+      await bot.send_message(int(user_to_message), msg.message.text)
+    except errors.rpcbaseerrors.UnauthorizedError or errors.rpcbaseerrors.ForbiddenError or errors.rpcerrorlist.UserIsBlockedError:
       return await msg.reply('Seems like the user blocked me...')
   except IndexError:
     pass
