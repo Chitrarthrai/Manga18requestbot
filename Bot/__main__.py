@@ -64,15 +64,17 @@ async def reply_to_user(msg):
 @bot.on(events.CallbackQuery(pattern=b'acp_'))
 async def accepter(query):
   user_to_notif = query.data.decode('UTF-8').split('_', 1)[1]
-  msg_before = query.message.text 
+  msg = await query.get_message()
+  msg_before = msg.message.text 
   msg_after = msg_before + '\n\n✔︎ Accepted'
   await query.answer('Trying to send a notif....')
   await bot.send_message(int(user_to_notif), text='Your request was accepted!')
-  await query.message.edit(msg_after, buttons=[[Button.inline(text='Request Complete', data=f'recomp_{user_to_notif}')]])
+  await query.edit(msg_after, buttons=[[Button.inline(text='Request Complete', data=f'recomp_{user_to_notif}')]])
   
 @bot.on(events.CallbackQuery(pattern=b'recomp_'))
 async def accepter(query):
   user_to_notif = query.data.decode('UTF-8').split('_', 1)[1]
+  msg = await query.get_message()
   msg_before = query.message.text 
   msg_after = msg_before + '\n\n✔︎✔︎ Completed!'
   await query.answer('Trying to send a notif....')
