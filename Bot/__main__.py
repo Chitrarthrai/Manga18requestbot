@@ -53,7 +53,8 @@ async def start(msg):
 async def reply_to_user(msg):
   try:
     repl = await msg.get_reply_message()
-    user_to_message = repl.text.split('`', 1)[1][:-1]
+    user_to_message = repl.text.split('`', 1)[1]
+    user_to_message = user_to_message.split('`')[0]
     try:
       await bot.send_message(int(user_to_message), text=msg.message.text)
     except errors.rpcbaseerrors.UnauthorizedError or errors.rpcbaseerrors.ForbiddenError:
