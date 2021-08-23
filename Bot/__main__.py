@@ -64,8 +64,7 @@ async def reply_to_user(msg):
 @bot.on(events.CallbackQuery(pattern=b'acp_'))
 async def accepter(query):
   user_to_notif = query.data.decode('UTF-8').split('_', 1)[1]
-  msg = await query.get_message()
-  msg_before = msg.message.text 
+  msg_before = await query.get_message()
   msg_after = msg_before + '\n\n✔︎ Accepted'
   await query.answer('Trying to send a notif....')
   await bot.send_message(int(user_to_notif), text='Your request was accepted!')
@@ -74,8 +73,7 @@ async def accepter(query):
 @bot.on(events.CallbackQuery(pattern=b'recomp_'))
 async def accepter(query):
   user_to_notif = query.data.decode('UTF-8').split('_', 1)[1]
-  msg = await query.get_message()
-  msg_before = query.message.text 
+  msg_before = await query.get_message()
   msg_after = msg_before + '\n\n✔︎✔︎ Completed!'
   await query.answer('Trying to send a notif....')
   await bot.send_message(int(user_to_notif), text='Your request was completed and uploaded in channel, Check!')
