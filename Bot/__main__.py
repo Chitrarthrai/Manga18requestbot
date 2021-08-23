@@ -83,7 +83,7 @@ async def accepter(query):
     await query.answer('Sent Notif...')
   except errors.rpcerrorlist.UserIsBlockedError:
     await query.answer('User blocked bot..')
-  await query.message.edit(msg_after, buttons=[])
+  await query.edit(msg_after, buttons=[])
   
 scraper.start()
 bot.start()
