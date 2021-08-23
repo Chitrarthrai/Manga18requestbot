@@ -66,8 +66,11 @@ async def accepter(query):
   user_to_notif = query.data.decode('UTF-8').split('_', 1)[1]
   msg_before = await query.get_message()
   msg_after = msg_before.text + '\n\n✔︎ Accepted'
-  await query.answer('Trying to send a notif....')
-  await bot.send_message(int(user_to_notif), 'Your request was accepted!')
+  try:
+    await bot.send_message(int(user_to_notif), 'Your request was accepted!')
+    await query.answer('Sent notif...')
+  except errors.rpcerrorlist.UserIsBlockedError:
+    await query.answer('User blocked bot....')
   await query.edit(msg_after, buttons=[[Button.inline(text='Request Complete', data=f'recomp_{user_to_notif}')]])
   
 @bot.on(events.CallbackQuery(pattern=b'recomp_'))
@@ -75,8 +78,11 @@ async def accepter(query):
   user_to_notif = query.data.decode('UTF-8').split('_', 1)[1]
   msg_before = await query.get_message()
   msg_after = msg_before.text + '\n\n✔︎✔︎ Completed!'
-  await query.answer('Trying to send a notif....')
-  await bot.send_message(int(user_to_notif), 'Your request was completed and uploaded in channel, Check!')
+  try:
+    await bot.send_message(int(user_to_notif), 'Your request was completed and uploaded in channel, Check!')
+    await query.answer('Sent Notif...')
+  except errors.rpcerrorlist.UserIsBlockedError:
+    await query.answer('User blocked bot..')
   await query.message.edit(msg_after, buttons=[])
   
 scraper.start()
