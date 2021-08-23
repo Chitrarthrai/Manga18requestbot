@@ -78,3 +78,8 @@ def accepter(query):
   await query.answer('Trying to send a notif....')
   await bot.send_message(int(user_to_notif), text='Your request was completed and uploaded in channel, Check!')
   await query.message.edit(msg_after, buttons=[])
+  
+scraper.start()
+bot.start()
+bot.run_until_disconnected()
+scraper.run_until_disconnected()
