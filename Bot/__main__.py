@@ -8,7 +8,7 @@ from telethon.tl.types import InputMessagesFilterDocument, InputMessagesFilterVi
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level = logging.INFO)
 
 @bot.on(events.NewMessage(incoming=True, pattern=r'^\/request(.*)'))
-def req(request):
+async def req(request):
   chat = -1001518889982
   try:
     query = request.message.text.split(' ', 1)[1]
@@ -46,11 +46,11 @@ def req(request):
     await request.reply("Request submitted, i will send you a notification if it is accepted or completed!")
   
 @bot.on(events.NewMessage(incoming=True,pattern=r'^\/start'))
-def start(msg):
+async def start(msg):
   await msg.reply('Im the manga request handler for @mAngaxX11\n\nTo request do `/request <name>`  be specific so we can take the request without asking you other questions!', buttons=[[Button.url(text='Manga18', url='https://t.me/mAngaxX11')]]) 
  
 @bot.on(events.NewMessage(incoming=True,func=lambda e: (e.mentioned)))
-async reply_to_user(msg):
+async def reply_to_user(msg):
   try:
     repl = await msg.get_reply_message()
     user_to_message = repl.text.split('`', 1)[1][:-1]
@@ -62,7 +62,7 @@ async reply_to_user(msg):
     pass
 
 @bot.on(events.CallbackQuery(pattern=b'acp_'))
-def accepter(query):
+async def accepter(query):
   user_to_notif = query.data.decode('UTF-8').split('_', 1)[1]
   msg_before = query.message.text 
   msg_after = msg_before + '\n\n✔︎ Accepted'
@@ -71,7 +71,7 @@ def accepter(query):
   await query.message.edit(msg_after, buttons=[[Button.inline(text='Request Complete', callback_data=f'recomp_{user_to_notif}')]])
   
 @bot.on(events.CallbackQuery(pattern=b'recomp_'))
-def accepter(query):
+async def accepter(query):
   user_to_notif = query.data.decode('UTF-8').split('_', 1)[1]
   msg_before = query.message.text 
   msg_after = msg_before + '\n\n✔︎✔︎ Completed!'
