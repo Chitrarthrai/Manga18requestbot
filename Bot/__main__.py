@@ -17,7 +17,7 @@ async def req(request):
   keybo = []
   async for message in scraper.iter_messages(chat, search=query):
       try:
-        text = message.raw_text.split('📓 :', 1)[0]
+        text = message.raw_text.split('📓 :', 1)[1]
         msg_id = message.id 
         link = f"https://t.me/c/{str(chat)[4:]}/{str(msg_id)}" 
         keybo.append([Button.url(text =
