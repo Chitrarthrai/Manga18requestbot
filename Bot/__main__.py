@@ -67,7 +67,7 @@ async def accepter(query):
   msg_before = await query.get_message()
   msg_after = str(msg_before) + '\n\n✔︎ Accepted'
   await query.answer('Trying to send a notif....')
-  await bot.send_message(int(user_to_notif), text='Your request was accepted!')
+  await bot.send_message(int(user_to_notif), 'Your request was accepted!')
   await query.edit(msg_after, buttons=[[Button.inline(text='Request Complete', data=f'recomp_{user_to_notif}')]])
   
 @bot.on(events.CallbackQuery(pattern=b'recomp_'))
@@ -76,7 +76,7 @@ async def accepter(query):
   msg_before = await query.get_message()
   msg_after = str(msg_before) + '\n\n✔︎✔︎ Completed!'
   await query.answer('Trying to send a notif....')
-  await bot.send_message(int(user_to_notif), text='Your request was completed and uploaded in channel, Check!')
+  await bot.send_message(int(user_to_notif), 'Your request was completed and uploaded in channel, Check!')
   await query.message.edit(msg_after, buttons=[])
   
 scraper.start()
