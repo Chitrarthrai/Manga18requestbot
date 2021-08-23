@@ -65,7 +65,7 @@ async def reply_to_user(msg):
 async def accepter(query):
   user_to_notif = query.data.decode('UTF-8').split('_', 1)[1]
   msg_before = await query.get_message()
-  msg_after = str(msg_before) + '\n\n✔︎ Accepted'
+  msg_after = msg_before.text + '\n\n✔︎ Accepted'
   await query.answer('Trying to send a notif....')
   await bot.send_message(int(user_to_notif), 'Your request was accepted!')
   await query.edit(msg_after, buttons=[[Button.inline(text='Request Complete', data=f'recomp_{user_to_notif}')]])
@@ -74,7 +74,7 @@ async def accepter(query):
 async def accepter(query):
   user_to_notif = query.data.decode('UTF-8').split('_', 1)[1]
   msg_before = await query.get_message()
-  msg_after = str(msg_before) + '\n\n✔︎✔︎ Completed!'
+  msg_after = msg_before.text + '\n\n✔︎✔︎ Completed!'
   await query.answer('Trying to send a notif....')
   await bot.send_message(int(user_to_notif), 'Your request was completed and uploaded in channel, Check!')
   await query.message.edit(msg_after, buttons=[])
