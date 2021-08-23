@@ -1,5 +1,5 @@
 import os
-from telethon import TelegramClient 
+from telethon.sync import TelegramClient 
 from telethon.sessions import StringSession
 
 API_ID = int(os.environ.get('API_ID'))
