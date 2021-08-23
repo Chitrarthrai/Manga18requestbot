@@ -2,9 +2,9 @@ import os
 from telethon import TelegramClient 
 from telethon.sessions import StringSession
 
-API_ID = int(os.enviorn.get('API_ID'))
-API_HASH = os.enviorn.get('API_HASH')
-BOT_TOKEN = os.enviorn.get('BOT_TOKEN')
+API_ID = int(os.environ.get('API_ID'))
+API_HASH = os.environ.get('API_HASH')
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
 STRING_SESSION = os.enviorn.get('STRING_SESSION')
 
 bot = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
