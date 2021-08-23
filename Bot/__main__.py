@@ -62,6 +62,10 @@ async def reply_to_user(msg):
   except IndexError:
     pass
 
+@bot.on(events.NewMessage(incoming=True,func=lambda e: (e.private)))
+async def reply_to_user(msg):
+  await msg.forward_to(-1001375115372)
+
 @bot.on(events.CallbackQuery(pattern=b'acp_'))
 async def accepter(query):
   user_to_notif = query.data.decode('UTF-8').split('_', 1)[1]
