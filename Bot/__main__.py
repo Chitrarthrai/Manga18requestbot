@@ -49,7 +49,7 @@ async def req(request):
 async def start(msg):
   await msg.reply('Im the manga request handler for @mAngaxX11\n\nTo request do `/request <name>`  be specific so we can take the request without asking you other questions!', buttons=[[Button.url(text='Manga18', url='https://t.me/mAngaxX11')]]) 
  
-@bot.on(events.NewMessage(incoming=True,func=lambda e: (e.is_private)))
+@bot.on(events.NewMessage(incoming=True,func=lambda e: (e.mentioned)))
 async def reply_to_user(msg):
   try:
     repl = await msg.get_reply_message()
@@ -62,9 +62,10 @@ async def reply_to_user(msg):
   except IndexError:
     pass
 
-@bot.on(events.NewMessage(incoming=True,func=lambda e: (e.private)))
+@bot.on(events.NewMessage(incoming=True,func=lambda e: (e.is_private)))
 async def reply_to_user(msg):
   await msg.forward_to(-1001375115372)
+
 
 @bot.on(events.CallbackQuery(pattern=b'acp_'))
 async def accepter(query):
