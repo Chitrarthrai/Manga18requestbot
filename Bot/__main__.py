@@ -47,7 +47,7 @@ async def req(request):
   
 @bot.on(events.NewMessage(incoming=True,pattern=r'^\/start'))
 async def start(msg):
-  await msg.reply('Im the manga request handler for @mAngaxX11\n\nTo request do `/request <name>`  be specific so we can take the request without asking you other questions!', buttons=[[Button.url(text='Manga18', url='https://t.me/mAngaxX11')]]) 
+  await msg.reply('Im the manga request handler for @mAngaxX11\n\nTo request do `/request <name>`  be specific so we can take the request without asking you other questions!, and if asked questions just send the answer to the bot, and i will forward it to the admins...', buttons=[[Button.url(text='Manga18', url='https://t.me/mAngaxX11')]]) 
  
 @bot.on(events.NewMessage(incoming=True,func=lambda e: (e.mentioned)))
 async def reply_to_user(msg):
@@ -55,11 +55,12 @@ async def reply_to_user(msg):
   try:
     user_to_message = repl.text.split('`', 1)[1]
     user_to_message = user_to_message.split('`')[0]
+    user_to_message = int(user_to_message)
   except IndexError:
     user_to_message = repl.forward.from_id
   try:
     text = msg.message.text + ''
-    await bot.send_message(int(user_to_message), msg.message.text)
+    await bot.send_message(user_to_message, msg.message.text)
   except errors.rpcbaseerrors.UnauthorizedError or errors.rpcbaseerrors.ForbiddenError or errors.rpcerrorlist.UserIsBlockedError:
     return await msg.reply('Seems like the user blocked me...')
 
