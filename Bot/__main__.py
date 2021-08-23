@@ -51,17 +51,17 @@ async def start(msg):
  
 @bot.on(events.NewMessage(incoming=True,func=lambda e: (e.mentioned)))
 async def reply_to_user(msg):
+  repl = await msg.get_reply_message()
   try:
-    repl = await msg.get_reply_message()
     user_to_message = repl.text.split('`', 1)[1]
     user_to_message = user_to_message.split('`')[0]
-    try:
-      text = msg.message.text + ''
-      await bot.send_message(int(user_to_message), msg.message.text)
-    except errors.rpcbaseerrors.UnauthorizedError or errors.rpcbaseerrors.ForbiddenError or errors.rpcerrorlist.UserIsBlockedError:
-      return await msg.reply('Seems like the user blocked me...')
   except IndexError:
-    pass
+    user_to_message = repl.forward.from_id
+  try:
+    text = msg.message.text + ''
+    await bot.send_message(int(user_to_message), msg.message.text)
+  except errors.rpcbaseerrors.UnauthorizedError or errors.rpcbaseerrors.ForbiddenError or errors.rpcerrorlist.UserIsBlockedError:
+    return await msg.reply('Seems like the user blocked me...')
 
 @bot.on(events.NewMessage(incoming=True,func=lambda e: (e.is_private)))
 async def reply_to_user(msg):
