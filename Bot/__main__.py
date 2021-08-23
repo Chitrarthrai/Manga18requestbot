@@ -49,7 +49,7 @@ async def req(request):
 async def start(msg):
   await msg.reply('Im the manga request handler for @mAngaxX11\n\nTo request do `/request <name>`  be specific so we can take the request without asking you other questions!', buttons=[[Button.url(text='Manga18', url='https://t.me/mAngaxX11')]]) 
  
-@bot.on(events.NewMessage(incoming=True,func=lambda e: (e.mentioned)))
+@bot.on(events.NewMessage(incoming=True,func=lambda e: (e.is_private)))
 async def reply_to_user(msg):
   try:
     repl = await msg.get_reply_message()
