@@ -109,7 +109,7 @@ async def inline_search(inline):
       link = f"https://t.me/c/{str(chat)[4:]}/{str(msg_id)}" 
       try:
         title = message.raw_text.split('📓 :', 1)[1]
-        title = title.split('\n\n', 1)[0]
+        title = title.split('\n', 1)[0]
         description = message.raw_text.replace('\n', '|')
         keybo.append(
           inline.builder.article(
