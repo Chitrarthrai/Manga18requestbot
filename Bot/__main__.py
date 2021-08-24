@@ -117,8 +117,8 @@ async def inline_search(inline):
             text=f'{message.text}',
             )
           )
-        except IndexError:
-          pass
+      except IndexError:
+        pass
   if keybo == []:
     return await inline.answer([], switch_pm='Could not find the thing you searched....', switch_pm_param='start')
   await inline.answer(keybo)
