@@ -101,7 +101,7 @@ async def inline_search(inline):
     await inline.answer([], switch_pm='Search in @mAngaxX11..', switch_pm_param='start')
   query = inline.text
   keybo = []
-  async for message in scraper.iter_messages(-1001487075546, search=query):
+  async for message in scraper.iter_messages(chat, search=query):
       if len(keybo) > 30:
         await inline.answer([], switch_pm='Try to be a little specific...', switch_pm_param='start')
         return
