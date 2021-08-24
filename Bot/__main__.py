@@ -61,7 +61,7 @@ async def reply_to_user(msg):
   try:
     text = msg.message.text + ''
     await bot.send_message(user_to_message, msg.message.text)
-  except errors.rpcbaseerrors.UnauthorizedError or errors.rpcbaseerrors.ForbiddenError or errors.rpcerrorlist.UserIsBlockedError:
+  except errors.rpcerrorlist.UserIsBlockedError:
     return await msg.reply('Seems like the user blocked me...')
 
 @bot.on(events.NewMessage(incoming=True,func=lambda e: (e.is_private)))
@@ -93,6 +93,35 @@ async def accepter(query):
   except errors.rpcerrorlist.UserIsBlockedError:
     await query.answer('User blocked bot..')
   await query.edit(msg_after)
+
+@bot.on(events.InlineQuery)
+async def inline_search(inline):
+  chat = -1001518889982
+  if inline.text == '':
+    await inline.answer([], switch_pm='Search in @mAngaxX11..', switch_pm_param='start')
+  query = inline.text
+  keybo = []
+  async for message in scraper.iter_messages(-1001487075546, search=query):
+      if len(keybo) > 30:
+        await inline.answer([], switch_pm='Try to be a little specific...', switch_pm_param='start')
+        return
+      msg_id = message.id 
+      link = f"https://t.me/c/{str(chat)[4:]}/{str(msg_id)}" 
+      try:
+        title = message.raw_text.split('📓 :', 1)[1].split('\n\n', 1)[1]
+        description = message.raw_text.replace('\n', '|')
+        keybo.append(
+          inline.builder.article(
+            title=f'{title}',
+            description=f'{description}......',
+            text=f'{message.text}',
+            )
+          )
+        except IndexError:
+          pass
+  if keybo == []:
+    return await inline.answer([], switch_pm='Could not find the thing you searched....', switch_pm_param='start')
+  await inline.answer(keybo)
   
 scraper.start()
 bot.start()
