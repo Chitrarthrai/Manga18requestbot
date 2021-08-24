@@ -118,6 +118,8 @@ async def inline_search(inline):
             text=f'{message.text}',
             )
           )
+      except AttributeError:
+        pass
       except IndexError:
         pass
   if keybo == []:
