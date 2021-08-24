@@ -116,6 +116,7 @@ async def inline_search(inline):
             title=f'{title}',
             description=f'{description}......',
             text=f'{message.text}',
+            link_preview=False,
             )
           )
       except AttributeError:
