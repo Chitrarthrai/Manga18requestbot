@@ -9,7 +9,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 @bot.on(events.NewMessage(incoming=True, pattern=r'^\/request(.*)'))
 async def req(request):
-  chat = -1001518889982
+  chat = -1518889982
   try:
     query = request.message.text.split(' ', 1)[1]
   except IndexError:
